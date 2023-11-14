@@ -671,6 +671,12 @@ a:focus {
   margin-right: 8px;
 }
 
+/* Test Component */
+
+.test-component {
+  text-align: center;
+}
+
 /* end info section */
 /* footer section*/
 /* .footer_section {
