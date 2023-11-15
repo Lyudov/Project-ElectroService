@@ -9,6 +9,8 @@ import Info from "./Info";
 import Test from "./Test";
 import { getDatabase, push, ref } from "firebase/database";
 import { useState } from "react";
+import Login from "./Login";
+import Register from "./Register";
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
       <About />
       <Blog />
       <Contact />
+      <Login />
+      <Register />
       <Info />
       <Footer />
     </>
