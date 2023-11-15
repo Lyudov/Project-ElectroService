@@ -11,6 +11,7 @@ import { getDatabase, push, ref } from "firebase/database";
 import { useState } from "react";
 import Login from "./Login";
 import Register from "./Register";
+import CreateBlog from "./CreateBlog";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
       <Contact />
       <Login />
       <Register />
+      <CreateBlog />
       <Info />
       <Footer />
     </>

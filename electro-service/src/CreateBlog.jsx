@@ -1,4 +1,46 @@
+import { getDatabase, ref, push } from "firebase/database";
+import { useState } from "react";
+
 function CreateBlog() {
+  const [imageUrl, setImageUrl] = useState("");
+  const [createBlog, setCreateBlog] = useState({
+    imageUrl: "",
+    title: "",
+    description: "",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setCreateBlog({
+      ...createBlog,
+      [name]: value,
+    });
+  };
+
+  const handleImageURLChange = (e) => {
+    setImageUrl(e.target.value);
+  };
+
+  const writeToDatabase = () => {
+    const database = getDatabase();
+
+    const createBlogRef = ref(database, "blogService");
+
+    const blogData = {
+      imageUrl: imageUrl,
+      title: createBlog.title,
+      description: createBlog.description,
+    };
+
+    push(createBlogRef, blogData);
+
+    setCreateBlog({
+      title: "",
+      description: "",
+    });
+    setImageUrl("");
+  };
+
   return (
     <section className="contact_section layout_padding">
       <div className="container ">
@@ -12,10 +54,22 @@ function CreateBlog() {
           <div className="col-md-6">
             <form action="">
               <div className="img-box">
-                <img src="" alt="" />
+                <input
+                  type="text"
+                  name="imageUrl"
+                  value={imageUrl}
+                  onChange={handleImageURLChange}
+                  placeholder="Enter Image URL"
+                />
               </div>
               <div>
-                <input type="text" name="title" placeholder="Title" />
+                <input
+                  type="text"
+                  name="title"
+                  placeholder="Title"
+                  value={createBlog.title}
+                  onChange={handleInputChange}
+                />
               </div>
               <div>
                 <input
@@ -23,10 +77,14 @@ function CreateBlog() {
                   className="message-box"
                   name="description"
                   placeholder="Description"
+                  value={createBlog.description}
+                  onChange={handleInputChange}
                 />
               </div>
               <div className="d-flex ">
-                <button>SEND</button>
+                <button type="button" onClick={writeToDatabase}>
+                  Create
+                </button>
               </div>
             </form>
           </div>
@@ -35,3 +93,5 @@ function CreateBlog() {
     </section>
   );
 }
+
+export default CreateBlog;
