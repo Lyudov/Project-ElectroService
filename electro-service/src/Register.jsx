@@ -1,5 +1,6 @@
 import { getDatabase, push, ref } from "firebase/database";
 import { useState } from "react";
+import styles from "./Register.Module.css";
 
 function Register() {
   const [regData, setRegData] = useState({

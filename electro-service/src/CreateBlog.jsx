@@ -1,5 +1,6 @@
 import { getDatabase, ref, push } from "firebase/database";
 import { useState } from "react";
+import styles from "./CreateBlog.Module.css";
 
 function CreateBlog() {
   const [imageUrl, setImageUrl] = useState("");
@@ -42,7 +43,7 @@ function CreateBlog() {
   };
 
   return (
-    <section className="contact_section layout_padding">
+    <section className="create_section layout_padding">
       <div className="container ">
         <div className="heading_container">
           <h2>Create Blog</h2>
@@ -72,7 +73,7 @@ function CreateBlog() {
                 />
               </div>
               <div>
-                <input
+                <textarea
                   type="text"
                   className="message-box"
                   name="description"

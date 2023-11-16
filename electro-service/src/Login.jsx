@@ -1,3 +1,5 @@
+import styles from "./Login.Module.css";
+
 function Login() {
   return (
     <section className="login_section layout_padding">

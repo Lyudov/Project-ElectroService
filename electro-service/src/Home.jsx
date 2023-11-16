@@ -1,6 +1,8 @@
+import styles from "./Home.Module.css";
+
 function Home() {
   return (
-    <section className=" slider_section ">
+    <section className=" slider_section layout_padding">
       <div className="container">
         <div className="row">
           <div className="col-md-6 ">
