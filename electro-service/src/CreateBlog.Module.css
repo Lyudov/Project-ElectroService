@@ -1,3 +1,9 @@
+.border-container {
+    align-items: center;
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
 .create_section {
     position: relative;
     margin-top: 90px;
