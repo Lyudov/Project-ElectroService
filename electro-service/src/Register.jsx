@@ -1,6 +1,8 @@
-import { getDatabase, push, ref } from "firebase/database";
+import { getDatabase, set, push, ref } from "firebase/database";
 import { useState } from "react";
 import styles from "./Register.Module.css";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "./firebase";
 
 function Register() {
   const [regData, setRegData] = useState({
@@ -19,18 +21,44 @@ function Register() {
     });
   };
 
-  const writeToDatabase = () => {
-    const database = getDatabase();
-    const regRef = ref(database, "regData");
+  //   const writeToDatabase = () => {
+  //     const database = getDatabase();
+  //     const regRef = ref(database, "regData");
 
-    push(regRef, regData);
+  //     push(regRef, regData);
 
-    setRegData({
-      username: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-    });
+  //     setRegData({
+  //       username: "",
+  //       email: "",
+  //       password: "",
+  //       confirmPassword: "",
+  //     });
+  //   };
+
+  const writeToDatabase = async () => {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        regData.email,
+        regData.password
+      );
+
+      const user = userCredential.user;
+      console.log("User registered:", user);
+
+      //   const database = getDatabase();
+      //   const userRef = ref(database, `users/${user.uid}`);
+      //   set(userRef, { username: regData.username });
+
+      setRegData({
+        username: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+      });
+    } catch (error) {
+      console.log("Error during registration:", error.message);
+    }
   };
 
   return (
