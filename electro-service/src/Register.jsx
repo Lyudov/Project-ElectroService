@@ -1,4 +1,4 @@
-import { getDatabase, set, push, ref, onValue } from "firebase/database";
+import { getDatabase, push, ref } from "firebase/database";
 import { useState } from "react";
 
 function Register() {

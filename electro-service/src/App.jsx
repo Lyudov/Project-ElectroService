@@ -13,18 +13,23 @@ import Login from "./Login";
 import Register from "./Register";
 import CreateBlog from "./CreateBlog";
 
+import { Routes, Route } from "react-router-dom";
+import Home from "./Home";
+
 function App() {
   return (
     <>
       <Header />
-      <Test />
-      <Service />
-      <About />
-      <Blog />
-      <Contact />
-      <Login />
-      <Register />
-      <CreateBlog />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/service" element={<Service />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/create-blog" element={<CreateBlog />} />
+      </Routes>
       <Info />
       <Footer />
     </>
