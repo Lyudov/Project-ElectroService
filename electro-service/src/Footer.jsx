@@ -9,8 +9,8 @@ function Footer() {
             className={`${styles["col-lg-7"]} ${styles["col-md-9"]} ${styles["mx-auto"]}`}
           >
             <p>
-              &copy; 2019 All Rights Reserved By
-              <a href="https://html.design/"> Free Html Templates</a>
+              &copy; 2023 All Rights Reserved By
+              <a href="https://softuni.bg/"> React Project Defense </a>
             </p>
           </div>
         </div>

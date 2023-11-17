@@ -1,8 +1,7 @@
 import { getDatabase, set, push, ref } from "firebase/database";
+import { useCookies } from "react-cookie";
 import { useState } from "react";
 import styles from "./Register.Module.css";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "./firebase";
 
 function Register() {
   const [regData, setRegData] = useState({
@@ -11,6 +10,8 @@ function Register() {
     password: "",
     confirmPassword: "",
   });
+
+  const [cookies, setCookie] = useCookies(["registrationToken"]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -21,46 +22,28 @@ function Register() {
     });
   };
 
-  //   const writeToDatabase = () => {
-  //     const database = getDatabase();
-  //     const regRef = ref(database, "regData");
-
-  //     push(regRef, regData);
-
-  //     setRegData({
-  //       username: "",
-  //       email: "",
-  //       password: "",
-  //       confirmPassword: "",
-  //     });
-  //   };
-
-  const writeToDatabase = async () => {
-    try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        regData.email,
-        regData.password
-      );
-
-      const user = userCredential.user;
-      console.log("User registered:", user);
-
-      //   const database = getDatabase();
-      //   const userRef = ref(database, `users/${user.uid}`);
-      //   set(userRef, { username: regData.username });
-
-      setRegData({
-        username: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-      });
-    } catch (error) {
-      console.log("Error during registration:", error.message);
+  const handleRegister = async () => {
+    if (regData.password !== regData.confirmPassword) {
+      console.error("Passwords do not match");
+      return;
     }
-  };
 
+    const database = getDatabase();
+    const usersRef = ref(database, "users");
+
+    const newUserRef = push(usersRef);
+    set(newUserRef, {
+      username: regData.username,
+      email: regData.email,
+      password: regData.password,
+    });
+
+    const generatedRegistrationToken =
+      "4tBeiB22rBFzRFWrWFK1x7IIMkcYsdUQ9otEgQB9ttHhrrv2yruCWcGpZyXrTPfJ";
+
+    setCookie("registrationToken", generatedRegistrationToken, { path: "/" });
+    console.log("User registered and data stored successfully");
+  };
   return (
     <section className="register_section layout_padding">
       <div className="container ">
@@ -78,7 +61,6 @@ function Register() {
                   type="text"
                   name="username"
                   placeholder="Username"
-                  value={regData.username}
                   onChange={handleInputChange}
                 />
               </div>
@@ -87,7 +69,6 @@ function Register() {
                   type="email"
                   name="email"
                   placeholder="Email"
-                  value={regData.email}
                   onChange={handleInputChange}
                 />
               </div>
@@ -96,7 +77,6 @@ function Register() {
                   type="text"
                   name="password"
                   placeholder="Password"
-                  value={regData.password}
                   onChange={handleInputChange}
                 />
               </div>
@@ -105,12 +85,11 @@ function Register() {
                   type="text"
                   name="confirmPassword"
                   placeholder="Confirm Password"
-                  value={regData.confirmPassword}
                   onChange={handleInputChange}
                 />
               </div>
               <div className="d-flex-login ">
-                <button type="button" onClick={writeToDatabase}>
+                <button type="button" onClick={handleRegister}>
                   Register
                 </button>
               </div>

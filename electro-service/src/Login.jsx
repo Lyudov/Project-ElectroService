@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
-// import { auth } from "firebase/auth";
+import { useCookies } from "react-cookie";
+import { getDatabase, ref, push, onValue } from "firebase/database";
 import styles from "./Login.Module.css";
 
 function Login() {
@@ -8,6 +8,8 @@ function Login() {
     email: "",
     password: "",
   });
+
+  const [cookies, setCookie] = useCookies(["authToken"]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -20,16 +22,31 @@ function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    try {
-      await signInWithEmailAndPassword(
-        auth,
-        loginData.email,
-        loginData.password
-      );
 
-      console.log("User logged in");
+    try {
+      const usersRef = ref(getDatabase(), "users");
+
+      onValue(usersRef, (snapshot) => {
+        const usersData = snapshot.val();
+
+        const user = Object.values(usersData).find(
+          (userData) =>
+            userData.email === loginData.email &&
+            userData.password === loginData.password
+        );
+
+        const generatedToken =
+          "zdAJvUOo9U6Cw19V4Z3z1I9CW4guMM6zrt8eifxy8tbzEg6QHkeX0Uve6OBOCcvv";
+
+        if (user) {
+          console.log("User logged in:", user);
+          setCookie("authToken", generatedToken, { path: "/" });
+        } else {
+          console.log("Invalid credentials");
+        }
+      });
     } catch (error) {
-      console.log("Error durin login:", error.message);
+      console.error("Error during login:", error.message);
     }
   };
 
