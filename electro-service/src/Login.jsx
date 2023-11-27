@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useCookies } from "react-cookie";
-import { getDatabase, ref, push, onValue } from "firebase/database";
+import { getDatabase, ref, onValue } from "firebase/database";
 import styles from "./Login.Module.css";
 
 function Login() {
@@ -38,8 +38,36 @@ function Login() {
         const generatedToken =
           "zdAJvUOo9U6Cw19V4Z3z1I9CW4guMM6zrt8eifxy8tbzEg6QHkeX0Uve6OBOCcvv";
 
+        //       if (user && user.verificationToken === cookies.registrationToken) {
+        //         console.log("User logged in:", user);
+        //         const generatedAuthToken = "yourGeneratedAuthToken";
+        //         setCookie("authToken", generatedAuthToken, { path: "/" });
+        //       } else {
+        //         console.log("Invalid credentials or not verified");
+        //       }
+        //     });
+        //   } catch (error) {
+        //     console.error("Error during login:", error.message);
+        //   }
+        // };
+
+        //       if (user) {
+        //         console.log("User logged in:", user);
+        //         setCookie("authToken", generatedToken, { path: "/" });
+        //       } else {
+        //         console.log("Invalid credentials");
+        //       }
+        //     });
+        //   } catch (error) {
+        //     console.error("Error during login:", error.message);
+        //   }
+        // };
+
         if (user) {
           console.log("User logged in:", user);
+          // Log generated token before setting the cookie
+          console.log("Generated Auth Token:", generatedToken);
+
           setCookie("authToken", generatedToken, { path: "/" });
         } else {
           console.log("Invalid credentials");

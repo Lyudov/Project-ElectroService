@@ -1,6 +1,7 @@
 import { getDatabase, set, push, ref } from "firebase/database";
 import { useCookies } from "react-cookie";
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import styles from "./Register.Module.css";
 
 function Register() {
@@ -12,6 +13,10 @@ function Register() {
   });
 
   const [cookies, setCookie] = useCookies(["registrationToken"]);
+
+  // const generateVerificationToken = () => {
+  //   return uuidv4();
+  // };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -32,14 +37,16 @@ function Register() {
     const usersRef = ref(database, "users");
 
     const newUserRef = push(usersRef);
+
+    const generatedRegistrationToken = uuidv4();
+
+    // const verificationToken = generateVerificationToken();
+
     set(newUserRef, {
       username: regData.username,
       email: regData.email,
       password: regData.password,
     });
-
-    const generatedRegistrationToken =
-      "4tBeiB22rBFzRFWrWFK1x7IIMkcYsdUQ9otEgQB9ttHhrrv2yruCWcGpZyXrTPfJ";
 
     setCookie("registrationToken", generatedRegistrationToken, { path: "/" });
     console.log("User registered and data stored successfully");

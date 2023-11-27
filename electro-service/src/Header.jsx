@@ -1,10 +1,18 @@
+import React from "react";
+import { Link } from "react-router-dom";
+import { useCookies } from "react-cookie";
+
 function Header() {
+  const [cookies] = useCookies(["authToken"]);
+
+  const isAuthenticated = !!cookies.authToken;
+
   return (
     <div className="hero_area">
       <header className="header_section">
         <div className="container">
           <nav className="navbar navbar-expand-lg custom_nav-container ">
-            <a className="navbar-brand" href="index.html">
+            <a className="navbar-brand" href="/">
               <img src="images/logo.png" alt="" />
               <span>Electrochip</span>
             </a>
@@ -56,24 +64,34 @@ function Header() {
                       Contact{" "}
                     </a>
                   </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href="/register">
-                      {" "}
-                      Register
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href="/login">
-                      {" "}
-                      Login
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href="/create-blog">
-                      {" "}
-                      Create Blog
-                    </a>
-                  </li>
+                  {isAuthenticated && (
+                    <>
+                      <li className="nav-item">
+                        <Link className="nav-link" to="/create-blog">
+                          Create Blog
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link className="nav-link" to="/logout">
+                          Logout
+                        </Link>
+                      </li>
+                    </>
+                  )}
+                  {!isAuthenticated && (
+                    <>
+                      <li className="nav-item">
+                        <Link className="nav-link" to="/register">
+                          Register
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link className="nav-link" to="/login">
+                          Login
+                        </Link>
+                      </li>
+                    </>
+                  )}
                 </ul>
               </div>
             </div>

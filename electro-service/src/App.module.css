@@ -384,7 +384,7 @@ a:focus {
     background-color: #5625a1;
 }
 
-.about_section {
+/* .about_section {
     background-color: #f3f0f6;
 }
 
@@ -443,7 +443,7 @@ a:focus {
 
 .about_section .detail-box a:hover {
     background-color: #5625a1;
-}
+} */
 
 .blog_section .heading_container {
     -webkit-box-pack: center;

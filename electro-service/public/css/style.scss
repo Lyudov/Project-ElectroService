@@ -387,52 +387,52 @@ a:focus {
 
 
 // about section
-.about_section {
-  background-color: #f3f0f6;
+// .about_section {
+//   background-color: #f3f0f6;
 
-  .row {
-    align-items: center;
-  }
+//   .row {
+//     align-items: center;
+//   }
 
-  .img_container {
-    display: flex;
-    flex-direction: column;
+//   .img_container {
+//     display: flex;
+//     flex-direction: column;
 
-    .img-box {
-      border: 5px solid #7b57b2;
-      border-radius: 100%;
-      overflow: hidden;
+//     .img-box {
+//       border: 5px solid #7b57b2;
+//       border-radius: 100%;
+//       overflow: hidden;
 
-      &.b1 {
-        width: 70%;
-      }
+//       &.b1 {
+//         width: 70%;
+//       }
 
-      &.b2 {
-        width: 50%;
-        margin-left: auto;
-        margin-top: -12%;
-      }
+//       &.b2 {
+//         width: 50%;
+//         margin-left: auto;
+//         margin-top: -12%;
+//       }
 
-      img {
-        width: 100%;
-      }
-    }
-  }
+//       img {
+//         width: 100%;
+//       }
+//     }
+//   }
 
-  .detail-box {
-    margin-right: 15%;
+//   .detail-box {
+//     margin-right: 15%;
 
 
-    p {
-      margin-top: 25px;
-    }
+//     p {
+//       margin-top: 25px;
+//     }
 
-    a {
-      @include hero_btn($primary1, $white, 10px, 35px, 5px);
-      margin: 25px 0 45px 0;
-    }
-  }
-}
+//     a {
+//       @include hero_btn($primary1, $white, 10px, 35px, 5px);
+//       margin: 25px 0 45px 0;
+//     }
+//   }
+// }
 
 // end about section
 

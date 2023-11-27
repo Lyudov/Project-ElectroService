@@ -1,4 +1,6 @@
 import React from "react";
+import { Routes, Route } from "react-router-dom";
+
 import Footer from "./Footer";
 import Header from "./Header";
 import Service from "./Service";
@@ -6,15 +8,14 @@ import About from "./About";
 import Blog from "./Blog";
 import Contact from "./Contact";
 import Info from "./Info";
-import Test from "./Test";
-import { getDatabase, push, ref } from "firebase/database";
-import { useState } from "react";
 import Login from "./Login";
 import Register from "./Register";
 import CreateBlog from "./CreateBlog";
-
-import { Routes, Route } from "react-router-dom";
+import BlogDetails from "./BlogDetails";
 import Home from "./Home";
+import Logout from "./Logout";
+
+import Test from "./Test";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/service" element={<Service />} />
         <Route path="/about" element={<About />} />
         <Route path="/blog" element={<Blog />} />
+        <Route path="details/:id" element={<BlogDetails />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />

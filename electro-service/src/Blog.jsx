@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { getDatabase, ref, onValue } from "firebase/database";
 import { useEffect, useState } from "react";
 
@@ -26,8 +27,8 @@ function Blog() {
           <img src="images/plug.png" alt="" />
         </div>
         <div className="row">
-          {blogData.map((data, index) => (
-            <div className="col-md-6" key={index}>
+          {blogData.map((data) => (
+            <div className="col-md-6" key={data.id}>
               <div className="box">
                 <div className="img-box">
                   <img src={data.imageUrl} alt="" />
@@ -35,6 +36,8 @@ function Blog() {
                 <div className="detail-box">
                   <h5>{data.title}</h5>
                   <p>{data.description}</p>
+                  <p>{data.id}</p>
+                  <Link to={`/details/${data.id}`}>Read more</Link>
                 </div>
               </div>
             </div>
@@ -42,6 +45,28 @@ function Blog() {
         </div>
       </div>
     </section>
+
+    // <section className="blog_section layout_padding">
+    //   <div className="container">
+    //     <div className="row">
+    //       {blogData.map((data) => (
+    //         <div className="col-md-6" key={data.key}>
+    //           <div className="box">
+    //             <div className="img-box">
+    //               <img src={data.imageUrl} alt="" />
+    //             </div>
+    //             <div className="detail-box">
+    //               <h5>{data.title}</h5>
+    //               <p>{data.description}</p>
+
+    //               <Link to={`/blog/${data.key}`}>Read More</Link>
+    //             </div>
+    //           </div>
+    //         </div>
+    //       ))}
+    //     </div>
+    //   </div>
+    // </section>
   );
 }
 

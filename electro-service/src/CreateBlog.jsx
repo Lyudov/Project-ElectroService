@@ -1,10 +1,13 @@
 import { getDatabase, ref, push } from "firebase/database";
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import styles from "./CreateBlog.Module.css";
 
 function CreateBlog() {
   const [imageUrl, setImageUrl] = useState("");
+  const id = uuidv4();
   const [createBlog, setCreateBlog] = useState({
+    id: uuidv4(),
     imageUrl: "",
     title: "",
     description: "",
@@ -28,14 +31,18 @@ function CreateBlog() {
     const createBlogRef = ref(database, "blogService");
 
     const blogData = {
+      id: createBlog.id,
       imageUrl: imageUrl,
       title: createBlog.title,
       description: createBlog.description,
     };
 
-    push(createBlogRef, blogData);
+    const newBlogRef = push(createBlogRef, blogData);
+    const newBlogId = newBlogRef.key;
+    console.log("New Blog Id:", newBlogId);
 
     setCreateBlog({
+      id: uuidv4(),
       title: "",
       description: "",
     });
