@@ -1,21 +1,28 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useCookies } from "react-cookie";
+import Logout from "./Logout";
 
 function Header() {
-  const [cookies] = useCookies(["authToken"]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const isAuthenticated = !!cookies.authToken;
+  useEffect(() => {
+    const checkAuthentication = () => {
+      const isAuthenticated = document.cookie.includes("authToken");
+      setIsLoggedIn(isAuthenticated);
+    };
+
+    checkAuthentication();
+  }, []);
 
   return (
     <div className="hero_area">
       <header className="header_section">
         <div className="container">
-          <nav className="navbar navbar-expand-lg custom_nav-container ">
-            <a className="navbar-brand" href="/">
+          <nav className="navbar navbar-expand-lg custom_nav-container">
+            <Link className="navbar-brand" to="/">
               <img src="images/logo.png" alt="" />
               <span>Electrochip</span>
-            </a>
+            </Link>
             <button
               className="navbar-toggler"
               type="button"
@@ -35,36 +42,34 @@ function Header() {
               id="navbarSupportedContent"
             >
               <div className="d-flex ml-auto flex-column flex-lg-row align-items-center">
-                <ul className="navbar-nav  ">
-                  <li className="nav-item active">
-                    <a className="nav-link" href="/">
-                      Home <span className="sr-only">(current)</span>
-                    </a>
+                <ul className="navbar-nav">
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/">
+                      Home
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="/about">
-                      {" "}
+                    <Link className="nav-link" to="/about">
                       About
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="/service">
-                      {" "}
-                      Service{" "}
-                    </a>
+                    <Link className="nav-link" to="/service">
+                      Service
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="/blog">
-                      {" "}
-                      Blog{" "}
-                    </a>
+                    <Link className="nav-link" to="/blog">
+                      Blog
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="/contact">
-                      Contact{" "}
-                    </a>
+                    <Link className="nav-link" to="/contact">
+                      Contact
+                    </Link>
                   </li>
-                  {isAuthenticated && (
+
+                  {isLoggedIn ? (
                     <>
                       <li className="nav-item">
                         <Link className="nav-link" to="/create-blog">
@@ -72,13 +77,10 @@ function Header() {
                         </Link>
                       </li>
                       <li className="nav-item">
-                        <Link className="nav-link" to="/logout">
-                          Logout
-                        </Link>
+                        <Logout />
                       </li>
                     </>
-                  )}
-                  {!isAuthenticated && (
+                  ) : (
                     <>
                       <li className="nav-item">
                         <Link className="nav-link" to="/register">

@@ -13,7 +13,6 @@ import Register from "./Register";
 import CreateBlog from "./CreateBlog";
 import BlogDetails from "./BlogDetails";
 import Home from "./Home";
-import Logout from "./Logout";
 
 import Test from "./Test";
 

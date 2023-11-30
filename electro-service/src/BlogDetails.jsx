@@ -16,7 +16,6 @@ function BlogDetails() {
         const blogServiceData = snapshot.val();
 
         if (blogServiceData) {
-          // Find the blog entry with the specified ID
           const specifiedBlog = Object.values(blogServiceData).find(
             (blog) => blog.id === id
           );

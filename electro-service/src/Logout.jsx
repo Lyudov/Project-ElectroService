@@ -2,19 +2,15 @@ import React from "react";
 import { useCookies } from "react-cookie";
 
 function Logout() {
-  const [cookies, removeCookie] = useCookies(["authToken"]);
-  //   const history = useHistory();
+  const [, , removeCookie] = useCookies(["authToken"]);
 
   const handleLogout = () => {
-    removeCookie("authToken");
-    history.push("/");
+    removeCookie("authToken", { path: "/" });
+
+    window.location.reload();
   };
 
-  return (
-    <button type="button" onClick={handleLogout}>
-      Logout
-    </button>
-  );
+  return <button onClick={handleLogout}>Logout</button>;
 }
 
 export default Logout;
