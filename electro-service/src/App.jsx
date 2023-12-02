@@ -15,6 +15,7 @@ import BlogDetails from "./BlogDetails";
 import Home from "./Home";
 
 import Test from "./Test";
+import EditBlog from "./EditBlog";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/details/:id" element={<BlogDetails />} />
+        <Route path="/edit/:id" element={<EditBlog />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { getDatabase, ref, get } from "firebase/database";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -55,6 +56,9 @@ function BlogDetails() {
               </div>
               <div className="detail-box">
                 <p>{blogDetails.description}</p>
+              </div>
+              <div className="btn-box">
+                <Link to={`/edit/${id}`}>Edit</Link>
               </div>
             </div>
           </div>
