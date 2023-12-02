@@ -20,17 +20,19 @@ function App() {
   return (
     <>
       <Header />
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/service" element={<Service />} />
         <Route path="/about" element={<About />} />
         <Route path="/blog" element={<Blog />} />
-        <Route path="details/:id" element={<BlogDetails />} />
+        <Route path="/details/:id" element={<BlogDetails />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/create-blog" element={<CreateBlog />} />
       </Routes>
+
       <Info />
       <Footer />
     </>
