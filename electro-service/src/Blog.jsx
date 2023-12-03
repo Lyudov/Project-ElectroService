@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { getDatabase, ref, onValue } from "firebase/database";
 import { useEffect, useState } from "react";
+import styles from "./Blog.Module.css";
 
 function Blog() {
   const [blogData, setBlogData] = useState([]);

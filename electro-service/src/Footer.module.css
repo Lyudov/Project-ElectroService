@@ -18,3 +18,9 @@
 .footer_section p a {
     color: #222222;
 }
+
+.footer_bg {
+    background-image: url(../images/footer-bg.png);
+    background-size: cover;
+    background-position: top;
+}

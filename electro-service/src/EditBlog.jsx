@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { getDatabase, ref, update, remove, get } from "firebase/database";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import styles from "./EditBlog.module.css";
 
 function EditBlog() {
   const { id } = useParams();
@@ -54,10 +55,8 @@ function EditBlog() {
       await update(blogRef.child(id), {
         title: blogDetails.title,
         description: blogDetails.description,
-        // Add other fields you want to update
       });
 
-      // Redirect to the blog details page after the update
       navigate(`/details/${id}`);
     } catch (error) {
       console.error("Error updating blog:", error);
@@ -71,7 +70,6 @@ function EditBlog() {
     try {
       await remove(blogRef.child(id));
 
-      // Redirect to the blog page after the deletion
       navigate("/blog");
     } catch (error) {
       console.error("Error deleting blog:", error);
@@ -105,6 +103,7 @@ function EditBlog() {
               <div className="form-group">
                 <label htmlFor="description">Description</label>
                 <textarea
+                  className="message-box"
                   id="description"
                   name="description"
                   value={blogDetails.description}

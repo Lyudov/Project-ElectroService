@@ -1,3 +1,5 @@
+import styles from "./Info.Module.css";
+
 function Info() {
   return (
     <section className="info_section layout_padding">

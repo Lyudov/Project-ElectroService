@@ -1,3 +1,5 @@
+import styles from "./Contact.Module.css";
+
 function Contact() {
   return (
     <section className="contact_section layout_padding">

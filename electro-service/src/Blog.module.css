@@ -1,13 +1,7 @@
-/* 
-
-
 .layout_padding {
     padding-top: 90px;
     padding-bottom: 90px;
 }
-
-
-
 
 .heading_container {
     display: -webkit-box;
@@ -26,7 +20,6 @@
     position: relative;
     font-weight: bold;
     margin-right: 10px;
-
 }
 
 .heading_container img {
@@ -65,4 +58,4 @@
 
 .blog_section .box .detail-box h5 {
     font-weight: bold;
-} */
+}
