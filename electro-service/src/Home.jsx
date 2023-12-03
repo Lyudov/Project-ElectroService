@@ -7,7 +7,7 @@ function Home() {
         <div className="row">
           <div className="col-md-6 ">
             <div className="detail_box">
-              <h1>Electrical Service Providersc</h1>
+              <h1>Electrical Service Providers</h1>
               <p>
                 It is a long established fact that a reader will be distracted
                 by the readable content of a page when looking at its layout.

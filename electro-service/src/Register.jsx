@@ -14,6 +14,8 @@ function Register() {
 
   const [cookies, setCookie] = useCookies(["registrationToken"]);
 
+  const [error, setError] = useState("");
+
   // const generateVerificationToken = () => {
   //   return uuidv4();
   // };
@@ -27,32 +29,83 @@ function Register() {
     });
   };
 
+  const isStrongPassword = (password) => {
+    // Password validation, require a minimum of six characters, at least one digit, and one special character
+    const passwordRegex =
+      /^(?=.*[A-Za-z\d])(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/;
+    return passwordRegex.test(password);
+  };
+
+  // const isEmailRegistered = async (email) => {
+  //   const usersRef = ref(getDatabase(), "users");
+  //   const snapshot = await get(onValue(usersRef));
+
+  //   if (snapshot.exists()) {
+  //     const usersData = snapshot.val();
+  //     return Object.values(usersData).some(
+  //       (userData) => userData.email === email
+  //     );
+  //   }
+
+  //   return false;
+  // };
+
   const handleRegister = async () => {
     if (regData.password !== regData.confirmPassword) {
       console.error("Passwords do not match");
+      setError("Passwords do not match");
       return;
     }
 
-    const database = getDatabase();
-    const usersRef = ref(database, "users");
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(regData.email)) {
+      console.error("Invalid email format");
+      setError("Invalid email format");
+      return;
+    }
 
-    const newUserRef = push(usersRef);
+    // if (await isEmailRegistered(regData.email)) {
+    //   console.error("Email already registered");
+    //   setError(
+    //     "This email is already registered. Please use a different email."
+    //   );
+    //   return;
+    // }
 
-    const generatedRegistrationToken = uuidv4();
+    if (!isStrongPassword(regData.password)) {
+      console.error("Weak password");
+      setError(
+        "Password must consist of at least six characters, including one digit and one special character"
+      );
+      return;
+    }
 
-    // const verificationToken = generateVerificationToken();
+    try {
+      const database = getDatabase();
+      const usersRef = ref(database, "users");
 
-    set(newUserRef, {
-      username: regData.username,
-      email: regData.email,
-      password: regData.password,
-    });
+      const newUserRef = push(usersRef);
 
-    setCookie("registrationToken", generatedRegistrationToken, { path: "/" });
-    console.log("User registered and data stored successfully");
+      const generatedRegistrationToken = uuidv4();
+
+      // const verificationToken = generateVerificationToken();
+
+      set(newUserRef, {
+        username: regData.username,
+        email: regData.email,
+        password: regData.password,
+      });
+
+      setCookie("registrationToken", generatedRegistrationToken, { path: "/" });
+      console.log("User registered and data stored successfully");
+    } catch (error) {
+      console.error("Error during registration:", error.message);
+      setError("An error occurred during registration");
+    }
   };
   return (
     <section className="register_section layout_padding">
+      <div className="error-message">{error && <p>{error}</p>}</div>
       <div className="container ">
         <div className="heading_container">
           <h2>Register </h2>
@@ -94,6 +147,12 @@ function Register() {
                   placeholder="Confirm Password"
                   onChange={handleInputChange}
                 />
+                {error && error.includes("Passwords do not match") && (
+                  <p style={{ color: "red" }}>{error}</p>
+                )}
+                {error && error.includes("Weak password") && (
+                  <p style={{ color: "red" }}>{error}</p>
+                )}
               </div>
               <div className="d-flex-login ">
                 <button type="button" onClick={handleRegister}>

@@ -1,4 +1,5 @@
 import styles from "./Service.Module.css";
+
 function Service() {
   return (
     <section className="service_section layout_padding">

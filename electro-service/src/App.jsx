@@ -14,7 +14,6 @@ import CreateBlog from "./CreateBlog";
 import BlogDetails from "./BlogDetails";
 import Home from "./Home";
 
-import Test from "./Test";
 import EditBlog from "./EditBlog";
 
 function App() {

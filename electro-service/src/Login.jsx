@@ -12,6 +12,7 @@ function Login() {
 
   const [cookies, setCookie] = useCookies(["authToken"]);
   const navigate = useNavigate();
+  const [error, setError] = useState("");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -50,15 +51,18 @@ function Login() {
           window.location.reload();
         } else {
           console.log("Invalid credentials");
+          setError("Invalid email or password");
         }
       });
     } catch (error) {
       console.error("Error during login:", error.message);
+      setError("An error occurred during login");
     }
   };
 
   return (
     <section className="login_section layout_padding">
+      <div className="error-message">{error && <p>{error}</p>}</div>
       <div className="border-container">
         <div className="container ">
           <div className="heading_container">
