@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { getDatabase, ref, get } from "firebase/database";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import styles from "./BlogDetails.Module.css";
 
 function BlogDetails() {
   const { id } = useParams();
@@ -42,7 +43,7 @@ function BlogDetails() {
   }
 
   return (
-    <section className="details_section layout_padding">
+    <section className="blog_details_section layout_padding">
       <div className="container">
         <div className="heading_container">
           <h2>{blogDetails.title}</h2>

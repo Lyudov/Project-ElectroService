@@ -36,8 +36,7 @@ function Blog() {
                 </div>
                 <div className="detail-box">
                   <h5>{data.title}</h5>
-                  <p>{data.description}</p>
-                  <p>{data.id}</p>
+                  <p className="truncate">{data.description}</p>
                   <Link to={`/details/${data.id}`}>Read more</Link>
                 </div>
               </div>
