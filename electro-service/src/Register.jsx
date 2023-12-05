@@ -154,7 +154,7 @@ function Register() {
                   <p style={{ color: "red" }}>{error}</p>
                 )}
               </div>
-              <div className="d-flex-login ">
+              <div className="d-flex-register ">
                 <button type="button" onClick={handleRegister}>
                   Register
                 </button>

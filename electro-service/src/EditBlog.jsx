@@ -1,7 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { getDatabase, ref, update, remove, get } from "firebase/database";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { isAuthenticated } from "./authService";
+
 import styles from "./EditBlog.module.css";
 
 function EditBlog() {
@@ -75,6 +77,11 @@ function EditBlog() {
       console.error("Error deleting blog:", error);
     }
   };
+
+  if (!isAuthenticated()) {
+    // Redirect to login page if not authenticated
+    return <Navigate to="/login" />;
+  }
 
   if (!blogDetails) {
     return <p>Loading...</p>;
