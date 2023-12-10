@@ -2,14 +2,18 @@ import { Link } from "react-router-dom";
 import { getDatabase, ref, get } from "firebase/database";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+
 import styles from "./BlogDetails.Module.css";
+
+import { isAuthenticated } from "./authService";
 
 function BlogDetails() {
   const { id } = useParams();
   const [blogDetails, setBlogDetails] = useState(null);
+  const { isAuth, user } = isAuthenticated();
+  // const currentUserId = getCurrentUserId();
 
   useEffect(() => {
-    console.log("BlogDetails - ID:", id);
     const fetchBlogDetails = async () => {
       const database = getDatabase();
       const blogRef = ref(database, "blogService");
@@ -42,6 +46,9 @@ function BlogDetails() {
     return <p>Loading...</p>;
   }
 
+  const isAuthor = isAuth && user && user.uid === currentUserId;
+  console.log(isAuthor);
+
   return (
     <section className="blog_details_section layout_padding">
       <div className="container">
@@ -58,9 +65,11 @@ function BlogDetails() {
               <div className="detail-box">
                 <p>{blogDetails.description}</p>
               </div>
-              <div className="btn-box">
-                <Link to={`/edit/${id}`}>Edit</Link>
-              </div>
+              {isAuthor && (
+                <div className="btn-box">
+                  <Link to={`/edit/${id}`}>Edit</Link>
+                </div>
+              )}
             </div>
           </div>
         </div>

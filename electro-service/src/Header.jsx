@@ -4,16 +4,22 @@ import Logout from "./Logout";
 import styles from "./Header.Module.css";
 
 function Header() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(() =>
+    document.cookie.includes("authToken")
+  );
 
   useEffect(() => {
-    const checkAuthentication = () => {
-      const isAuthenticated = document.cookie.includes("authToken");
-      setIsLoggedIn(isAuthenticated);
+    const handleCookieChange = () => {
+      setIsLoggedIn(document.cookie.includes("authToken"));
     };
+    console.log(isLoggedIn);
 
-    checkAuthentication();
-  }, []);
+    window.addEventListener("onCookieChange", handleCookieChange);
+
+    return () => {
+      window.removeEventListener("onCookieChange", handleCookieChange);
+    };
+  }, [isLoggedIn]);
 
   return (
     <div className="hero_area">

@@ -94,12 +94,25 @@ function Register() {
         username: regData.username,
         email: regData.email,
         password: regData.password,
+        registrationToken: generatedRegistrationToken,
+      });
+
+      const userId = newUserRef.key;
+
+      set(newUserRef, {
+        username: regData.username,
+        email: regData.email,
+        password: regData.password,
+        userId: userId,
       });
 
       setCookie("registrationToken", generatedRegistrationToken, { path: "/" });
+      setCookie("userId", userId, { path: "/" });
+
       console.log("User registered and data stored successfully");
     } catch (error) {
       console.error("Error during registration:", error.message);
+
       setError("An error occurred during registration");
     }
   };

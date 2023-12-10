@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useCookies } from "react-cookie";
 import { getDatabase, ref, onValue } from "firebase/database";
 import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 import styles from "./Login.Module.css";
 
 function Login() {
@@ -17,10 +18,10 @@ function Login() {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
-    setLoginData({
-      ...loginData,
+    setLoginData((prevData) => ({
+      ...prevData,
       [name]: value,
-    });
+    }));
   };
 
   const handleLogin = async (e) => {
@@ -38,17 +39,16 @@ function Login() {
             userData.password === loginData.password
         );
 
-        const generatedToken =
-          "zdAJvUOo9U6Cw19V4Z3z1I9CW4guMM6zrt8eifxy8tbzEg6QHkeX0Uve6OBOCcvv";
-
         if (user) {
           console.log("User logged in:", user);
+
+          const generatedToken = uuidv4();
 
           console.log("Generated Auth Token:", generatedToken);
 
           setCookie("authToken", generatedToken, { path: "/" });
+          window.dispatchEvent(new Event("onCookieChange"));
           navigate("/");
-          window.location.reload();
         } else {
           console.log("Invalid credentials");
           setError("Invalid email or password");
