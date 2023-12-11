@@ -1,14 +1,15 @@
 import { getDatabase, set, push, ref } from "firebase/database";
 import { useCookies } from "react-cookie";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { isAuthenticated, getCookie } from "./authService";
 import { v4 as uuidv4 } from "uuid";
 import styles from "./Register.Module.css";
 
 function Register() {
-  // const [userId, setUserId] = useState(null);
   const [cookies, setCookie] = useCookies(["registrationToken"]);
   const [error, setError] = useState("");
-
+  const navigate = useNavigate();
   const [regData, setRegData] = useState({
     username: "",
     email: "",
@@ -19,6 +20,12 @@ function Register() {
   // const generateVerificationToken = () => {
   //   return uuidv4();
   // };
+
+  useEffect(() => {
+    if (isAuthenticated()) {
+      navigate("/");
+    }
+  }, [navigate]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -98,7 +105,7 @@ function Register() {
       // });
 
       const userId = newUserRef.key;
-      setUserId(userId);
+      // setUserId(userId);
       set(newUserRef, {
         username: regData.username,
         email: regData.email,
@@ -110,6 +117,7 @@ function Register() {
       setCookie("userId", userId, { path: "/" });
 
       console.log("User registered and data stored successfully");
+      navigate("/");
     } catch (error) {
       console.error("Error during registration:", error.message);
 

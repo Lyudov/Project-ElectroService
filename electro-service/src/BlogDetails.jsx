@@ -4,14 +4,12 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styles from "./BlogDetails.Module.css";
 
-import { isAuthenticated, getCookie } from "./authService";
+import { getCookie } from "./authService";
 
 function BlogDetails() {
   const { id } = useParams();
   const [blogDetails, setBlogDetails] = useState(null);
-  // const { isAuth } = isAuthenticated();
-  // const currentUserId = getCurrentUserId();
-  // const currentUserId = user ? user.uid : null;
+
   const userId = getCookie("userId");
 
   useEffect(() => {
@@ -47,8 +45,6 @@ function BlogDetails() {
     return <p>Loading...</p>;
   }
 
-  // const isAuthor = isAuth && user && user.uid === currentUserId;
-  // const isAuthor = userId && userId === blogDetails.author.userId;
   const isAuthor =
     userId &&
     blogDetails &&

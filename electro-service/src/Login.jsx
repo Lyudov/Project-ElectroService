@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { getDatabase, ref, onValue } from "firebase/database";
 import { useNavigate } from "react-router-dom";
+import { isAuthenticated } from "./authService";
 import { v4 as uuidv4 } from "uuid";
 import styles from "./Login.Module.css";
 
@@ -14,6 +15,12 @@ function Login() {
   const [cookies, setCookie] = useCookies(["authToken"]);
   const navigate = useNavigate();
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (isAuthenticated()) {
+      navigate("/");
+    }
+  }, [navigate]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
