@@ -47,6 +47,7 @@ function Login() {
           console.log("Generated Auth Token:", generatedToken);
 
           setCookie("authToken", generatedToken, { path: "/" });
+          setCookie("userId", user.userId, { path: "/" });
           window.dispatchEvent(new Event("onCookieChange"));
           navigate("/");
         } else {

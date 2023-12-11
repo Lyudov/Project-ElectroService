@@ -5,16 +5,16 @@ import { v4 as uuidv4 } from "uuid";
 import styles from "./Register.Module.css";
 
 function Register() {
+  // const [userId, setUserId] = useState(null);
+  const [cookies, setCookie] = useCookies(["registrationToken"]);
+  const [error, setError] = useState("");
+
   const [regData, setRegData] = useState({
     username: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
-
-  const [cookies, setCookie] = useCookies(["registrationToken"]);
-
-  const [error, setError] = useState("");
 
   // const generateVerificationToken = () => {
   //   return uuidv4();
@@ -90,15 +90,15 @@ function Register() {
 
       // const verificationToken = generateVerificationToken();
 
-      set(newUserRef, {
-        username: regData.username,
-        email: regData.email,
-        password: regData.password,
-        registrationToken: generatedRegistrationToken,
-      });
+      // set(newUserRef, {
+      //   username: regData.username,
+      //   email: regData.email,
+      //   password: regData.password,
+      //   registrationToken: generatedRegistrationToken,
+      // });
 
       const userId = newUserRef.key;
-
+      setUserId(userId);
       set(newUserRef, {
         username: regData.username,
         email: regData.email,

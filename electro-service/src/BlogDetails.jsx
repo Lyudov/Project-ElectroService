@@ -2,16 +2,17 @@ import { Link } from "react-router-dom";
 import { getDatabase, ref, get } from "firebase/database";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-
 import styles from "./BlogDetails.Module.css";
 
-import { isAuthenticated } from "./authService";
+import { isAuthenticated, getCookie } from "./authService";
 
 function BlogDetails() {
   const { id } = useParams();
   const [blogDetails, setBlogDetails] = useState(null);
-  const { isAuth, user } = isAuthenticated();
+  // const { isAuth } = isAuthenticated();
   // const currentUserId = getCurrentUserId();
+  // const currentUserId = user ? user.uid : null;
+  const userId = getCookie("userId");
 
   useEffect(() => {
     const fetchBlogDetails = async () => {
@@ -46,7 +47,13 @@ function BlogDetails() {
     return <p>Loading...</p>;
   }
 
-  const isAuthor = isAuth && user && user.uid === currentUserId;
+  // const isAuthor = isAuth && user && user.uid === currentUserId;
+  // const isAuthor = userId && userId === blogDetails.author.userId;
+  const isAuthor =
+    userId &&
+    blogDetails &&
+    blogDetails.author &&
+    userId === blogDetails.author.userId;
   console.log(isAuthor);
 
   return (

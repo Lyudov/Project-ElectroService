@@ -1,19 +1,21 @@
 import { getDatabase, ref, push } from "firebase/database";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { isAuthenticated } from "./authService";
+import { isAuthenticated, getCookie } from "./authService";
 import { db } from "./firebase";
 import styles from "./CreateBlog.Module.css";
 
 function CreateBlog() {
   const [imageUrl, setImageUrl] = useState("");
-  const id = uuidv4();
+  // const id = uuidv4();
   const [createBlog, setCreateBlog] = useState({
     id: uuidv4(),
     imageUrl: "",
     title: "",
     description: "",
   });
+
+  const userId = getCookie("userId");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -28,6 +30,12 @@ function CreateBlog() {
   };
 
   const writeToDatabase = () => {
+    // const { isAuth, user } = isAuthenticated();
+
+    // if (!isAuth || !user) {
+    //   console.log("User not authenticated");
+    //   return;
+    // }
     const database = getDatabase();
 
     const createBlogRef = ref(database, "blogService");
@@ -37,6 +45,9 @@ function CreateBlog() {
       imageUrl: imageUrl,
       title: createBlog.title,
       description: createBlog.description,
+      author: {
+        userId: userId,
+      },
     };
 
     const newBlogRef = push(createBlogRef, blogData);
