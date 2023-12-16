@@ -2,12 +2,14 @@ import { getDatabase, ref, push } from "firebase/database";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { isAuthenticated, getCookie } from "./authService";
+import { useNavigate } from "react-router-dom";
 import { db } from "./firebase";
 import styles from "./CreateBlog.Module.css";
 
 function CreateBlog() {
   const [imageUrl, setImageUrl] = useState("");
   // const id = uuidv4();
+  const navigate = useNavigate();
   const [createBlog, setCreateBlog] = useState({
     id: uuidv4(),
     imageUrl: "",
@@ -29,7 +31,7 @@ function CreateBlog() {
     setImageUrl(e.target.value);
   };
 
-  const writeToDatabase = () => {
+  const writeToDatabase = async () => {
     // const { isAuth, user } = isAuthenticated();
 
     // if (!isAuth || !user) {
@@ -60,7 +62,37 @@ function CreateBlog() {
       description: "",
     });
     setImageUrl("");
+    navigate("/blog");
   };
+
+  const handleCancel = () => {
+    navigate("/");
+  };
+
+  // const blogRef = ref(database, `blogService/${createBlog.id}`);
+
+  //   try {
+  //     await set(blogRef, {
+  //       id: createBlog.id,
+  //       imageUrl: imageUrl,
+  //       title: createBlog.title,
+  //       description: createBlog.description,
+  //       author: {
+  //         userId: userId,
+  //       },
+  //     });
+
+  //     console.log("New Blog Id:", createBlog.id);
+  //     setCreateBlog({
+  //       id: uuidv4(),
+  //       title: "",
+  //       description: "",
+  //     });
+  //     setImageUrl("");
+  //   } catch (error) {
+  //     console.error("Error creating blog:", error);
+  //   }
+  // };
 
   return (
     <section className="create_section layout_padding">
@@ -113,6 +145,9 @@ function CreateBlog() {
                 <div className="d-flex ">
                   <button type="button" onClick={writeToDatabase}>
                     Create
+                  </button>
+                  <button type="button" onClick={handleCancel}>
+                    Cancel
                   </button>
                 </div>
               </form>
