@@ -76,17 +76,16 @@ function BlogDetails() {
               <div className="detail-box">
                 <p>{blogDetails.description}</p>
               </div>
-              {isAuthor && (
-                <div className="btn-box">
+              <div className="btn-box">
+                {isAuthor && (
                   <button type="button" onClick={handleEdit}>
                     Edit
                   </button>
-                  <button type="button" onClick={handleCancel}>
-                    Cancel
-                  </button>
-                  {/* <Link to={`/edit/${id}`}>Edit</Link> */}
-                </div>
-              )}
+                )}
+                <button type="button" onClick={handleCancel}>
+                  Cancel
+                </button>
+              </div>
             </div>
           </div>
         </div>

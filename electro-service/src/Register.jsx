@@ -1,4 +1,4 @@
-import { getDatabase, set, push, ref } from "firebase/database";
+import { getDatabase, set, push, ref, get } from "firebase/database";
 import { useCookies } from "react-cookie";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -57,30 +57,88 @@ function Register() {
   //   return false;
   // };
 
+  // const handleRegister = async () => {
+  //   if (regData.password !== regData.confirmPassword) {
+  //     console.error("Passwords do not match");
+  //     setError("Passwords do not match");
+  //     return;
+  //   }
+
+  //   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  //   if (!emailRegex.test(regData.email)) {
+  //     console.error("Invalid email format");
+  //     setError("Invalid email format");
+  //     return;
+  //   }
+
+  //   // if (await isEmailRegistered(regData.email)) {
+  //   //   console.error("Email already registered");
+  //   //   setError(
+  //   //     "This email is already registered. Please use a different email."
+  //   //   );
+  //   //   return;
+  //   // }
+
+  //   if (!isStrongPassword(regData.password)) {
+  //     console.error("Weak password");
+  //     setError(
+  //       "Password must consist of at least six characters, including one digit and one special character"
+  //     );
+  //     return;
+  //   }
+
+  //   try {
+  //     const database = getDatabase();
+  //     const usersRef = ref(database, "users");
+
+  //     const newUserRef = push(usersRef);
+
+  //     const generatedRegistrationToken = uuidv4();
+
+  //     // const verificationToken = generateVerificationToken();
+
+  //     // set(newUserRef, {
+  //     //   username: regData.username,
+  //     //   email: regData.email,
+  //     //   password: regData.password,
+  //     //   registrationToken: generatedRegistrationToken,
+  //     // });
+
+  //     const userId = newUserRef.key;
+  //     // setUserId(userId);
+  //     set(newUserRef, {
+  //       username: regData.username,
+  //       email: regData.email,
+  //       password: regData.password,
+  //       userId: userId,
+  //     });
+
+  //     setCookie("registrationToken", generatedRegistrationToken, { path: "/" });
+  //     setCookie("userId", userId, { path: "/" });
+
+  //     console.log("User registered and data stored successfully");
+  //     navigate("/");
+  //   } catch (error) {
+  //     console.error("Error during registration:", error.message);
+
+  //     setError("An error occurred during registration");
+  //   }
+  // };
+
+  // Last update
   const handleRegister = async () => {
     if (regData.password !== regData.confirmPassword) {
-      console.error("Passwords do not match");
       setError("Passwords do not match");
       return;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(regData.email)) {
-      console.error("Invalid email format");
       setError("Invalid email format");
       return;
     }
 
-    // if (await isEmailRegistered(regData.email)) {
-    //   console.error("Email already registered");
-    //   setError(
-    //     "This email is already registered. Please use a different email."
-    //   );
-    //   return;
-    // }
-
     if (!isStrongPassword(regData.password)) {
-      console.error("Weak password");
       setError(
         "Password must consist of at least six characters, including one digit and one special character"
       );
@@ -91,21 +149,28 @@ function Register() {
       const database = getDatabase();
       const usersRef = ref(database, "users");
 
-      const newUserRef = push(usersRef);
+      // Check if the email is already registered
+      const snapshot = await get(usersRef);
 
+      if (snapshot.exists()) {
+        const usersData = snapshot.val();
+        const isEmailRegistered = Object.values(usersData).some(
+          (userData) => userData.email === regData.email
+        );
+
+        if (isEmailRegistered) {
+          setError(
+            "This email is already registered. Please use a different email."
+          );
+          return;
+        }
+      }
+
+      // Continue with the registration process if the email is not already registered
+      const newUserRef = push(usersRef);
       const generatedRegistrationToken = uuidv4();
 
-      // const verificationToken = generateVerificationToken();
-
-      // set(newUserRef, {
-      //   username: regData.username,
-      //   email: regData.email,
-      //   password: regData.password,
-      //   registrationToken: generatedRegistrationToken,
-      // });
-
       const userId = newUserRef.key;
-      // setUserId(userId);
       set(newUserRef, {
         username: regData.username,
         email: regData.email,
@@ -120,7 +185,6 @@ function Register() {
       navigate("/");
     } catch (error) {
       console.error("Error during registration:", error.message);
-
       setError("An error occurred during registration");
     }
   };

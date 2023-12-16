@@ -1,11 +1,10 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { getDatabase, ref, onValue } from "firebase/database";
 import { useEffect, useState } from "react";
 import styles from "./Blog.Module.css";
 
 function Blog() {
   const [blogData, setBlogData] = useState([]);
-  const navigation = useNavigate();
 
   useEffect(() => {
     const database = getDatabase();
@@ -20,10 +19,6 @@ function Blog() {
       }
     });
   }, []);
-
-  const handleReadMore = () => {
-    navigation(`/details/${data.id}`);
-  };
 
   return (
     <section className="blog_section layout_padding">
