@@ -32,7 +32,7 @@
     max-width: 100%;
 }
 
-.blog_section button {
+.blog_details_section button {
     border: none;
     display: inline-block;
     padding: 12px 45px;
@@ -42,7 +42,7 @@
     margin-top: 35px;
 }
 
-.blog_section button:hover {
+.blog_details_section button:hover {
     background-color: #5625a1;
 }
 
