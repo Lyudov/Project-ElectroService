@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { getDatabase, ref, get } from "firebase/database";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import styles from "./BlogDetails.Module.css";
 
 import { getCookie } from "./authService";
@@ -9,7 +9,7 @@ import { getCookie } from "./authService";
 function BlogDetails() {
   const { id } = useParams();
   const [blogDetails, setBlogDetails] = useState(null);
-
+  const navigate = useNavigate();
   const userId = getCookie("userId");
 
   useEffect(() => {
@@ -19,7 +19,7 @@ function BlogDetails() {
       try {
         const snapshot = await get(blogRef);
         const blogServiceData = snapshot.val();
-
+        console.log("Snapshot:", snapshot.val());
         if (blogServiceData) {
           const specifiedBlog = Object.values(blogServiceData).find(
             (blog) => blog.id === id
@@ -40,6 +40,14 @@ function BlogDetails() {
 
     fetchBlogDetails();
   }, [id]);
+
+  const handleEdit = () => {
+    navigate(`/edit/${id}`);
+  };
+
+  const handleCancel = () => {
+    navigate("/blog");
+  };
 
   if (!blogDetails) {
     return <p>Loading...</p>;
@@ -70,7 +78,13 @@ function BlogDetails() {
               </div>
               {isAuthor && (
                 <div className="btn-box">
-                  <Link to={`/edit/${id}`}>Edit</Link>
+                  <button type="button" onClick={handleEdit}>
+                    Edit
+                  </button>
+                  <button type="button" onClick={handleCancel}>
+                    Cancel
+                  </button>
+                  {/* <Link to={`/edit/${id}`}>Edit</Link> */}
                 </div>
               )}
             </div>
