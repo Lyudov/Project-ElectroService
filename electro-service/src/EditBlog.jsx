@@ -8,6 +8,7 @@ import styles from "./EditBlog.module.css";
 
 function EditBlog() {
   const { id } = useParams();
+  console.log("ID Parameter:", id);
   const [blogDetails, setBlogDetails] = useState(null);
   const navigate = useNavigate();
 
@@ -24,7 +25,6 @@ function EditBlog() {
           const specifiedBlog = Object.values(blogServiceData).find(
             (blog) => blog.id === id
           );
-
           if (specifiedBlog) {
             setBlogDetails(specifiedBlog);
           } else {
@@ -49,37 +49,81 @@ function EditBlog() {
     }));
   };
 
-  const handleUpdate = async () => {
+  const handleUpdate = async (e) => {
+    e.preventDefault();
     const database = getDatabase();
-    const blogRef = ref(database, "blogService");
+    const blogServiceRef = ref(database, "blogService");
 
     try {
-      await update(blogRef.child(id), {
-        title: blogDetails.title,
-        description: blogDetails.description,
-      });
+      const snapshot = await get(blogServiceRef);
+      const blogServiceData = snapshot.val();
 
-      navigate(`/details/${id}`);
+      if (blogServiceData) {
+        const blogKey = Object.keys(blogServiceData).find(
+          (key) => blogServiceData[key].id === id
+        );
+
+        if (blogKey) {
+          const blogRef = ref(database, `blogService/${blogKey}`);
+          const updatedBlogDetails = {
+            title: blogDetails.title,
+            description: blogDetails.description,
+          };
+
+          await update(blogRef, updatedBlogDetails);
+
+          console.log("Updated Blog Key:", blogKey);
+          navigate(`/details/${id}`);
+        } else {
+          console.log("Blog entry not found");
+        }
+      } else {
+        console.log("No blog entries found");
+      }
     } catch (error) {
       console.error("Error updating blog:", error);
     }
   };
 
   const handleDelete = async () => {
+    const findBlogKeyById = (blogServiceData, id) => {
+      return Object.keys(blogServiceData).find(
+        (key) => blogServiceData[key].id === id
+      );
+    };
+
     const database = getDatabase();
-    const blogRef = ref(database, "blogService");
+    const blogServiceRef = ref(database, "blogService");
 
     try {
-      await remove(blogRef.child(id));
+      const snapshot = await get(blogServiceRef);
+      const blogServiceData = snapshot.val();
 
-      navigate("/blog");
+      if (blogServiceData) {
+        const blogKey = findBlogKeyById(blogServiceData, id);
+
+        if (blogKey) {
+          const blogRef = ref(database, `blogService/${blogKey}`);
+          await remove(blogRef);
+          console.log("Deleted Blog Key:", blogKey);
+          navigate("/blog");
+        } else {
+          console.log("Blog entry not found");
+        }
+      } else {
+        console.log("No blog entries found");
+      }
     } catch (error) {
       console.error("Error deleting blog:", error);
     }
   };
 
+  const handleCancel = () => {
+    // Navigate to the home page
+    navigate(`/details/${id}`);
+  };
+
   if (!isAuthenticated()) {
-    // Redirect to login page if not authenticated
     return <Navigate to="/login" />;
   }
 
@@ -122,7 +166,9 @@ function EditBlog() {
                 <button type="button" onClick={handleDelete}>
                   Delete Blog
                 </button>
-                <Link to={`/details/${id}`}>Cancel</Link>
+                <button type="button" onClick={handleCancel}>
+                  Cancel
+                </button>
               </div>
             </form>
           </div>
