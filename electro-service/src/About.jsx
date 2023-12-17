@@ -1,6 +1,12 @@
+import { useNavigate } from "react-router-dom";
 import styles from "./About.Module.css";
 
 function About() {
+  const navigate = useNavigate();
+
+  const handleReadMoreClick = () => {
+    navigate("/about-us-details");
+  };
   return (
     <section className="about_section layout_padding">
       <div className="container">
@@ -18,7 +24,9 @@ function About() {
                 nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
                 in reprehenderit in voluptate velit
               </p>
-              <a href="">Read More</a>
+              <button type="button" onClick={handleReadMoreClick}>
+                Read More
+              </button>
             </div>
           </div>
           <div className="col-md-6">

@@ -15,6 +15,7 @@ import BlogDetails from "./BlogDetails";
 import Home from "./Home";
 
 import EditBlog from "./EditBlog";
+import AboutDetails from "./AboutDetails";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/create-blog" element={<CreateBlog />} />
+        <Route path="/about-us-details" element={<AboutDetails />} />
       </Routes>
 
       <Info />

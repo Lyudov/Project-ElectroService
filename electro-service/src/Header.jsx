@@ -28,7 +28,7 @@ function Header() {
           <nav className="navbar navbar-expand-lg custom_nav-container">
             <Link className="navbar-brand" to="/">
               <img src="images/logo.png" alt="" />
-              <span>Electrochip</span>
+              <span>Electro Elite Solutions</span>
             </Link>
             <button
               className="navbar-toggler"
