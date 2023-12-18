@@ -11,7 +11,9 @@ Installation
 To run the project locally, follow these steps:
 
 Clone the repository: git clone 
+
 Navigate to the project directory: cd electro-service
+
 Install dependencies: npm install
 
 The project follows a modular structure with major components:
