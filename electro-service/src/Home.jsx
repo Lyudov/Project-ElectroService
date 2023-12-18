@@ -1,6 +1,13 @@
+import { useNavigate } from "react-router-dom";
 import styles from "./Home.Module.css";
 
 function Home() {
+  const navigate = useNavigate();
+
+  const handleContactUs = () => {
+    navigate("/contact");
+  };
+
   return (
     <section className=" slider_section layout_padding">
       <div className="container">
@@ -13,7 +20,7 @@ function Home() {
                 by the readable content of a page when looking at its layout.
                 The point of using Lorem
               </p>
-              <button href="" className="">
+              <button type="button" onClick={handleContactUs}>
                 Contact Us
               </button>
             </div>

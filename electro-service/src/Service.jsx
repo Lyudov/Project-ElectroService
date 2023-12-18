@@ -21,7 +21,7 @@ function Service() {
               </p>
             </div>
           </div>
-          <div className="box active">
+          <div className="box">
             <div className="img-box">
               <img src="images/s2.png" className="img1" alt="" />
             </div>
