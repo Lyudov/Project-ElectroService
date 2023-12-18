@@ -27,14 +27,14 @@ function Info() {
           </div>
         </div>
         <div className="row">
-          <div className="col-md-8 col-lg-9">
+          {/* <div className="col-md-8 col-lg-9">
             <div className="info_form">
               <form action="">
                 <input type="text" placeholder="Enter your email" />
                 <button>subscribe</button>
               </form>
             </div>
-          </div>
+          </div> */}
           <div className="col-md-4 col-lg-3">
             <div className="info_social">
               <div>
