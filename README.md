@@ -2,7 +2,7 @@ Project Documentation
 
 Introduction
 
-Welcome to the documentation for the Electro Service project. This educational platform provides a space for users to interact with electrical services.
+Welcome to the documentation for the Electro Service project. This app provides a space for users to interact with electrical services.
 
 Getting Started
 
