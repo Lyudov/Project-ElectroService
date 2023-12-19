@@ -14,11 +14,14 @@ function Home() {
         <div className="row">
           <div className="col-md-6 ">
             <div className="detail_box">
-              <h1>Electrical Service Providers</h1>
+              <h1>
+                Electro Elite Solutions - Your Partner for Efficient and Safe
+                Home Electrical Maintenance
+              </h1>
               <p>
-                It is a long established fact that a reader will be distracted
-                by the readable content of a page when looking at its layout.
-                The point of using Lorem
+                Discover a range of services for maintenance, repair, and modern
+                electrical installations. We care for your home, ensuring
+                efficiency and safety.
               </p>
               <button type="button" onClick={handleContactUs}>
                 Contact Us
