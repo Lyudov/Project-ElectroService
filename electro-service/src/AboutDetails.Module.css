@@ -64,13 +64,7 @@
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.15);
 }
 
-/* .about_details_section .box .detail-box .truncate {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
 
-    -webkit-box-orient: vertical;
-} */
 
 .about_details_section .box .img-box {
     position: relative;

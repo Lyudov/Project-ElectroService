@@ -17,10 +17,6 @@ function Register() {
     confirmPassword: "",
   });
 
-  // const generateVerificationToken = () => {
-  //   return uuidv4();
-  // };
-
   useEffect(() => {
     if (isAuthenticated()) {
       navigate("/");
@@ -42,88 +38,6 @@ function Register() {
       /^(?=.*[A-Za-z\d])(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/;
     return passwordRegex.test(password);
   };
-
-  // const isEmailRegistered = async (email) => {
-  //   const usersRef = ref(getDatabase(), "users");
-  //   const snapshot = await get(onValue(usersRef));
-
-  //   if (snapshot.exists()) {
-  //     const usersData = snapshot.val();
-  //     return Object.values(usersData).some(
-  //       (userData) => userData.email === email
-  //     );
-  //   }
-
-  //   return false;
-  // };
-
-  // const handleRegister = async () => {
-  //   if (regData.password !== regData.confirmPassword) {
-  //     console.error("Passwords do not match");
-  //     setError("Passwords do not match");
-  //     return;
-  //   }
-
-  //   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  //   if (!emailRegex.test(regData.email)) {
-  //     console.error("Invalid email format");
-  //     setError("Invalid email format");
-  //     return;
-  //   }
-
-  //   // if (await isEmailRegistered(regData.email)) {
-  //   //   console.error("Email already registered");
-  //   //   setError(
-  //   //     "This email is already registered. Please use a different email."
-  //   //   );
-  //   //   return;
-  //   // }
-
-  //   if (!isStrongPassword(regData.password)) {
-  //     console.error("Weak password");
-  //     setError(
-  //       "Password must consist of at least six characters, including one digit and one special character"
-  //     );
-  //     return;
-  //   }
-
-  //   try {
-  //     const database = getDatabase();
-  //     const usersRef = ref(database, "users");
-
-  //     const newUserRef = push(usersRef);
-
-  //     const generatedRegistrationToken = uuidv4();
-
-  //     // const verificationToken = generateVerificationToken();
-
-  //     // set(newUserRef, {
-  //     //   username: regData.username,
-  //     //   email: regData.email,
-  //     //   password: regData.password,
-  //     //   registrationToken: generatedRegistrationToken,
-  //     // });
-
-  //     const userId = newUserRef.key;
-  //     // setUserId(userId);
-  //     set(newUserRef, {
-  //       username: regData.username,
-  //       email: regData.email,
-  //       password: regData.password,
-  //       userId: userId,
-  //     });
-
-  //     setCookie("registrationToken", generatedRegistrationToken, { path: "/" });
-  //     setCookie("userId", userId, { path: "/" });
-
-  //     console.log("User registered and data stored successfully");
-  //     navigate("/");
-  //   } catch (error) {
-  //     console.error("Error during registration:", error.message);
-
-  //     setError("An error occurred during registration");
-  //   }
-  // };
 
   // Last update
   const handleRegister = async () => {

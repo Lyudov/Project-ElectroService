@@ -32,12 +32,6 @@ function CreateBlog() {
   };
 
   const writeToDatabase = async () => {
-    // const { isAuth, user } = isAuthenticated();
-
-    // if (!isAuth || !user) {
-    //   console.log("User not authenticated");
-    //   return;
-    // }
     const database = getDatabase();
 
     const createBlogRef = ref(database, "blogService");
@@ -68,31 +62,6 @@ function CreateBlog() {
   const handleCancel = () => {
     navigate("/");
   };
-
-  // const blogRef = ref(database, `blogService/${createBlog.id}`);
-
-  //   try {
-  //     await set(blogRef, {
-  //       id: createBlog.id,
-  //       imageUrl: imageUrl,
-  //       title: createBlog.title,
-  //       description: createBlog.description,
-  //       author: {
-  //         userId: userId,
-  //       },
-  //     });
-
-  //     console.log("New Blog Id:", createBlog.id);
-  //     setCreateBlog({
-  //       id: uuidv4(),
-  //       title: "",
-  //       description: "",
-  //     });
-  //     setImageUrl("");
-  //   } catch (error) {
-  //     console.error("Error creating blog:", error);
-  //   }
-  // };
 
   return (
     <section className="create_section layout_padding">

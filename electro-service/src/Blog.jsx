@@ -47,28 +47,6 @@ function Blog() {
         </div>
       </div>
     </section>
-
-    // <section className="blog_section layout_padding">
-    //   <div className="container">
-    //     <div className="row">
-    //       {blogData.map((data) => (
-    //         <div className="col-md-6" key={data.key}>
-    //           <div className="box">
-    //             <div className="img-box">
-    //               <img src={data.imageUrl} alt="" />
-    //             </div>
-    //             <div className="detail-box">
-    //               <h5>{data.title}</h5>
-    //               <p>{data.description}</p>
-
-    //               <Link to={`/blog/${data.key}`}>Read More</Link>
-    //             </div>
-    //           </div>
-    //         </div>
-    //       ))}
-    //     </div>
-    //   </div>
-    // </section>
   );
 }
 
